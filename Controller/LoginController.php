@@ -52,7 +52,7 @@ class LoginController
 
                 if (trim($_POST['password']) !== trim($_POST['password_confirm'])) {
 
-                    $_SESSION['reg_error_msg'] = 'Password and Confirm Password Missmatch'; //add session obj           
+                    $_SESSION['reg_error_msg'] = 'Password and Confirm Password Mismatch'; //add session obj           
                     $this->list('toregister');
                 } else {
 
@@ -71,7 +71,8 @@ class LoginController
                         if ($pid > 0) {
                             $this->list();
                         } else {
-                            echo "Somthing is wrong..., try again.";
+                            $_SESSION['reg_error_msg'] = "Something is wrong..., try again.";
+                            echo false;
                         }
                     } else {
                         echo 'true';
@@ -104,10 +105,9 @@ class LoginController
                 $user->email = $row["email"];
                 $user->date_of_birth = $row["date_of_birth"];
                 $_SESSION['user_data'] = serialize($user);
-                // $this->pageRedirect("View/home.php");
                 $this->home();
             } else {
-                $_SESSION['log_error_msg'] = 'Username or Password Missmatch'; //add session obj           
+                $_SESSION['log_error_msg'] = 'Username or Password Mismatch'; //add session obj           
                 $this->list();
             }
         }

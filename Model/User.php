@@ -10,8 +10,6 @@ class User
     public $password;
     public $date_of_birth;
 
-
-
     // constructor set default value
     function __construct()
     {

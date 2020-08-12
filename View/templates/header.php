@@ -9,8 +9,6 @@
     <script src="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/jquery.min.js"></script>
     <script src="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/demo.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/animate-custom.css" /> -->
-
 </head>
 
 <body>
