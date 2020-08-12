@@ -1,24 +1,9 @@
 <?php
 // session_start();
 $user = isset($_SESSION['user_data']) ? unserialize($_SESSION['user_data']) : header('Location:index.php?action=logout');
-?>
-<!DOCTYPE html>
-<html>
+ 
+ include "templates/header.php";
 
-<head>
-    <title>Login or Signup</title>
-    <link rel="stylesheet" type="text/css" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/style.css">
-    <link href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/fontawesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/bootstrap.css">
-    <script src="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/jquery.min.js"></script>
-    <script src="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/bootstrap.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/demo.css" />
-    <link rel="stylesheet" type="text/css" href="<?= 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME']; ?>/php-test/PHP-Test/assets/animate-custom.css" />
-
-</head>
-
-<body>
-    <?php
     $data = [];
     foreach ($user as $key => $value) {
         $data[$key] = $value;
@@ -37,7 +22,6 @@ $user = isset($_SESSION['user_data']) ? unserialize($_SESSION['user_data']) : he
         </div>
     </div>
 
-    <h5>Helloo <?= $data['first_name'] . " " . $data['last_name']; ?> welcome back !</h5>
-</body>
+    <h5 class="home">Helloo, <span class="name"> <?= $data['first_name'] . " " . $data['last_name']; ?> </span> welcome back !</h5>
 
-</html>
+    <?php include "templates/footer.php"; ?>

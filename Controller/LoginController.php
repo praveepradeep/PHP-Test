@@ -19,7 +19,7 @@ class LoginController
     {
         $action = isset($_GET['action']) ? $_GET['action'] : NULL;
         switch ($action) {
-            case 'signup':
+            case 'register':
                 $this->insert();
                 break;
             case 'login':
@@ -31,6 +31,9 @@ class LoginController
             case 'home':
                 $this->home();
                 break;
+            case 'signup':
+                $this->list('signup');
+                break;
             default:
                 $this->list();
         }
@@ -40,30 +43,41 @@ class LoginController
     // add new record
     public function insert()
     {
+        unset($_SESSION['log_error_msg']);
+        unset($_SESSION['reg_error_msg']);
+
         try {
             $register = new User();
             if (isset($_POST['signup'])) {
-                // read form value
-                $register->email = trim($_POST['email']);
-                $register->first_name = trim($_POST['first_name']);
-                $register->last_name = trim($_POST['last_name']);
-                $register->password = trim($_POST['password']);
-                $register->date_of_birth = trim($_POST['date_of_birth']);
-                //call validation
 
-                $chk = true;
-                if ($chk) {
-                    //call insert record            
-                    $pid = $this->model->insertRecord($register);
-                    if ($pid > 0) {
-                        $this->list();
-                    } else {
-                        echo "Somthing is wrong..., try again.";
-                    }
+                if (trim($_POST['password']) !== trim($_POST['password_confirm'])) {
+
+                    $_SESSION['reg_error_msg'] = 'Password and Confirm Password Missmatch'; //add session obj           
+                    $this->list('toregister');
                 } else {
-                    echo 'true';
-                    $_SESSION['user_data'] = json_encode($register); //add session obj           
-                    $this->pageRedirect("View/home.php");
+
+                    // read form value
+                    $register->email = trim($_POST['email']);
+                    $register->first_name = trim($_POST['first_name']);
+                    $register->last_name = trim($_POST['last_name']);
+                    $register->password = trim($_POST['password']);
+                    $register->date_of_birth = trim($_POST['date_of_birth']);
+                    //call validation
+
+                    $chk = true;
+                    if ($chk) {
+                        //call insert record            
+                        $pid = $this->model->insertRecord($register);
+                        if ($pid > 0) {
+                            $this->list();
+                        } else {
+                            echo "Somthing is wrong..., try again.";
+                        }
+                    } else {
+                        echo 'true';
+                        $_SESSION['user_data'] = json_encode($register); //add session obj           
+                        $this->pageRedirect("View/home.php");
+                    }
                 }
             }
         } catch (Exception $e) {
@@ -74,6 +88,9 @@ class LoginController
 
     public function checkLogin()
     {
+        unset($_SESSION['log_error_msg']);
+        unset($_SESSION['reg_error_msg']);
+
         if (isset($_POST['login'])) {
             $email = trim($_POST['email']);
             $password = trim($_POST['password']);
@@ -90,7 +107,7 @@ class LoginController
                 // $this->pageRedirect("View/home.php");
                 $this->home();
             } else {
-                $_SESSION['error_msg'] = 'Username or Password Missmatch'; //add session obj           
+                $_SESSION['log_error_msg'] = 'Username or Password Missmatch'; //add session obj           
                 $this->list();
             }
         }
@@ -101,9 +118,15 @@ class LoginController
         header('Location:' . $url);
     }
 
-    public function list()
+    public function list($url = null)
     {
-        include "View/signup.php";
+        if (empty($url)) {
+
+            include "View/login.php";
+        } else {
+
+            include "View/signup.php";
+        }
     }
 
     public function home()

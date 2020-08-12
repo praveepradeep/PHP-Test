@@ -1,5 +1,16 @@
 /* remove codrops styles and reset the whole thing */
 
+.home {
+    text-align: center;
+    padding-top: 35px;
+    font-size: 35px;
+}
+
+.home .name {
+    font-size: 30px;
+    color: blueviolet;
+}
+
 #container_demo {
     text-align: left;
     margin: 0;
