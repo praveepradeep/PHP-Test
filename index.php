@@ -1,4 +1,5 @@
 <?php
-	require_once  'Controller/LoginController.php';		
-    $controller = new LoginController();
-?>
+session_unset();
+require_once  'Controller/LoginController.php';
+$controller = new LoginController();
+$controller->mvcHandler();
